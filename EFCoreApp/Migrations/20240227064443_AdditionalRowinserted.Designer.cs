@@ -4,6 +4,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240227064443_AdditionalRowinserted")]
+    partial class AdditionalRowinserted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,31 +49,24 @@ namespace EFCoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            StudentId = new Guid("41b8d128-696d-41b3-951c-42a59e0bf638"),
+                            StudentId = new Guid("7d42c00f-b64f-4c55-87c8-3d691fce098f"),
                             Age = 30,
                             IsRegularStudent = false,
                             Name = "John Doe"
                         },
                         new
                         {
-                            StudentId = new Guid("c1137e8e-1a55-41a8-91a6-ecb7eacde840"),
+                            StudentId = new Guid("f86605bf-4bb9-4ee3-bdda-9a27a07376c3"),
                             Age = 25,
                             IsRegularStudent = false,
                             Name = "John Depp"
                         },
                         new
                         {
-                            StudentId = new Guid("cc15dc21-9bee-4544-bd47-fe967b3d496e"),
+                            StudentId = new Guid("4bb565d0-ff88-43b4-9570-1534459ee1f3"),
                             Age = 29,
                             IsRegularStudent = false,
                             Name = "Mike Miles"
-                        },
-                        new
-                        {
-                            StudentId = new Guid("cb004594-65d5-45a1-844e-0d7ea020373f"),
-                            Age = 100,
-                            IsRegularStudent = false,
-                            Name = "TEST Name"
                         });
                 });
 #pragma warning restore 612, 618

@@ -1,4 +1,4 @@
-﻿using EFCoreApp.Entities;
+﻿using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
