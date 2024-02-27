@@ -4,6 +4,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240227090356_Convention_Approach")]
+    partial class Convention_Approach
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,28 +73,28 @@ namespace EFCoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            StudentId = new Guid("a9d3b2e1-b5cd-4bc0-8359-58aa48191cc3"),
+                            StudentId = new Guid("f6203b3a-997f-4edb-8043-2a63ac75bd96"),
                             Age = 30,
                             IsRegularStudent = false,
                             Name = "John Doe"
                         },
                         new
                         {
-                            StudentId = new Guid("3756ec90-f2e5-431c-b0bb-7dec11121a17"),
+                            StudentId = new Guid("7bfeec47-76b7-4513-9987-86457633cf18"),
                             Age = 25,
                             IsRegularStudent = false,
                             Name = "John Depp"
                         },
                         new
                         {
-                            StudentId = new Guid("bd596d3c-9669-46d0-9e65-b9f606135442"),
+                            StudentId = new Guid("e7982eb2-94e9-448c-900f-220ef1eb5954"),
                             Age = 29,
                             IsRegularStudent = false,
                             Name = "Mike Miles"
                         },
                         new
                         {
-                            StudentId = new Guid("58eadc80-5a44-401f-ba14-ac64defb512b"),
+                            StudentId = new Guid("ab844c33-1a0e-49c3-889e-6c83a7cbaa2c"),
                             Age = 100,
                             IsRegularStudent = false,
                             Name = "TEST Name"
@@ -124,43 +127,12 @@ namespace EFCoreApp.Migrations
                     b.ToTable("StudentDetails");
                 });
 
-            modelBuilder.Entity("Entities.StudentSubject", b =>
-                {
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("StudentId", "SubjectId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("StudentSubject");
-                });
-
-            modelBuilder.Entity("Entities.Subject", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("SubjectId");
-
-                    b.Property<string>("SubjectName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Subject");
-                });
-
             modelBuilder.Entity("Entities.Evaluation", b =>
                 {
                     b.HasOne("Entities.Student", "Student")
                         .WithMany("Evaluations")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Student");
@@ -177,38 +149,12 @@ namespace EFCoreApp.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("Entities.StudentSubject", b =>
-                {
-                    b.HasOne("Entities.Student", "Student")
-                        .WithMany("StudentSubjects")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Subject", "Subject")
-                        .WithMany("StudentSubjects")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-
-                    b.Navigation("Subject");
-                });
-
             modelBuilder.Entity("Entities.Student", b =>
                 {
                     b.Navigation("Evaluations");
 
                     b.Navigation("StudentDetails")
                         .IsRequired();
-
-                    b.Navigation("StudentSubjects");
-                });
-
-            modelBuilder.Entity("Entities.Subject", b =>
-                {
-                    b.Navigation("StudentSubjects");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,6 +4,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240227091253_ManyToManyRelationship")]
+    partial class ManyToManyRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,28 +73,28 @@ namespace EFCoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            StudentId = new Guid("a9d3b2e1-b5cd-4bc0-8359-58aa48191cc3"),
+                            StudentId = new Guid("5a007adc-1a2a-4a5c-92bf-5e69960cabad"),
                             Age = 30,
                             IsRegularStudent = false,
                             Name = "John Doe"
                         },
                         new
                         {
-                            StudentId = new Guid("3756ec90-f2e5-431c-b0bb-7dec11121a17"),
+                            StudentId = new Guid("1bdf3c57-845d-49aa-a455-ce876215bb7d"),
                             Age = 25,
                             IsRegularStudent = false,
                             Name = "John Depp"
                         },
                         new
                         {
-                            StudentId = new Guid("bd596d3c-9669-46d0-9e65-b9f606135442"),
+                            StudentId = new Guid("2f1efcaf-fdbb-489e-93cb-d30ca956a8e8"),
                             Age = 29,
                             IsRegularStudent = false,
                             Name = "Mike Miles"
                         },
                         new
                         {
-                            StudentId = new Guid("58eadc80-5a44-401f-ba14-ac64defb512b"),
+                            StudentId = new Guid("4bf7b85e-f3af-4b30-81f9-206d54923547"),
                             Age = 100,
                             IsRegularStudent = false,
                             Name = "TEST Name"
@@ -160,7 +163,7 @@ namespace EFCoreApp.Migrations
                     b.HasOne("Entities.Student", "Student")
                         .WithMany("Evaluations")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Student");

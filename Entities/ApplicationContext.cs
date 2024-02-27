@@ -13,11 +13,13 @@ namespace Entities
         }
 
         public DbSet<Student> Students { get; set; }
+        public DbSet<Evaluation> Evaluations {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            modelBuilder.ApplyConfiguration(new StudentConfiguration());
-             
+           modelBuilder.ApplyConfiguration(new StudentSubjectConfiguration());
+
         }
 
     }
